@@ -15,9 +15,9 @@ export default function BlackBlock({
       <hr/>
       <h2>{subTitle}</h2>
       <div className="products">
-        {products.map(item => {
+        {products.map((item, i) => {
           return (
-            <div className="products-card">
+            <div key={i} className="products-card">
               <img width={100} height={120} src={item.image} alt="" />
               <div className="products-card__name">{item.name}</div>
               <div className="products-card__description">{item.description}</div>
