@@ -10,7 +10,7 @@ export default class Input extends React.Component {
     const { type, value } = this.props;
 
     return (
-      <input type={type} onChange={this.handleChange} />
+      <input value={value} type={type} onChange={this.handleChange} />
     )
   }
 }
