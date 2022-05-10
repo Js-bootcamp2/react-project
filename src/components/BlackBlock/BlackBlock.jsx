@@ -91,7 +91,7 @@ export default class BlackBlock extends React.Component {
                   key={i}
                   className="products-card"
                 >
-                  <img width={100} height={120} src={item.image} alt="" />
+                  {item.image && <img width={100} height={120} src={item.image} alt="" />}
                   <div className="products-card__name">{item.name}</div>
                   <div className="products-card__description">
                     {item.description}

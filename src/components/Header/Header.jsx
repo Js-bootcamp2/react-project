@@ -27,7 +27,6 @@ export default function Header({cart, setCart}) {
     setCart([]);
   }
   
-  console.log('render')
   return (
     <header className="header">
       <div onClick={redirectToHome} className="logo">
@@ -56,7 +55,7 @@ export default function Header({cart, setCart}) {
             </div>
           )}
           <div>
-            {cart.map(item => <div className="cart-item">{item.name}</div>)}
+            {cart.map((item, i) => <div key={i} className="cart-item">{item.name}</div>)}
           </div>
         </div>
       )}

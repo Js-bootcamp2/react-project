@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BlackBlock from '../../components/BlackBlock/BlackBlock';
 import BlackBlockTitle from '../../components/BlackBlock/BlackBlockTitle';
 
+const baseURL = 'https://api.sampleapis.com/coffee/hot';
+
 export default function Home({cart, setCart}) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    fetchProducts();
+  }, [])
+
+  const fetchProducts = () => {
+    setLoading(true);
+    fetch(baseURL)
+      .then(resp => resp.json())
+      .then(data => {
+        setProducts(data.map(item => ({...item, name: item.title})))
+        setLoading(false);
+      }).catch(e => {
+        console.log("e", e.message)
+        setLoading(false);
+      });
+  }
+
   const bestSellersProducts = [
     {
       id: 1,
@@ -41,22 +63,26 @@ export default function Home({cart, setCart}) {
     },
   ]
 
+  console.log('products', products)
   return (
     <>
-       <BlackBlock
-        title="bestsellers" 
-        coloredTitle={
-          <BlackBlockTitle
-            firstText="BESTSELLER" 
-            firstColor="red"
-          />
-        }
-        subTitle="collection"
-        products={bestSellersProducts}
-        cart={cart}
-        addToCart={setCart}
-      />
-
+       {loading ? (
+         <div>Loading...</div>
+       ) : (
+        <BlackBlock
+          title="coffee" 
+          coloredTitle={
+            <BlackBlockTitle
+              firstText="Coffee" 
+              firstColor="red"
+            />
+          }
+          subTitle="collection"
+          products={products}
+          cart={cart}
+          addToCart={setCart}
+        />
+      )}
       <BlackBlock
         title="KOBE BRYANT"
         coloredTitle={
