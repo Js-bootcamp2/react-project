@@ -2,7 +2,7 @@ import React from 'react';
 import BlackBlock from '../../components/BlackBlock/BlackBlock';
 import BlackBlockTitle from '../../components/BlackBlock/BlackBlockTitle';
 
-export default function Home() {
+export default function Home({cart, setCart}) {
   const bestSellersProducts = [
     {
       id: 1,
@@ -53,6 +53,8 @@ export default function Home() {
         }
         subTitle="collection"
         products={bestSellersProducts}
+        cart={cart}
+        addToCart={setCart}
       />
 
       <BlackBlock
@@ -67,6 +69,8 @@ export default function Home() {
         }
         subTitle="collection"
         products={bestSellersProducts}
+        cart={cart}
+        addToCart={setCart}
       />
 
       <BlackBlock
@@ -81,6 +85,8 @@ export default function Home() {
         }
         subTitle="collection"
         products={[]}
+        cart={cart}
+        addToCart={setCart}
       />
     </>
   )

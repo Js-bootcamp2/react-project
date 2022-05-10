@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Header.css';
 import Button from '../Button/button';
 import Input from '../Input/Input';
 
-export default function Header() {
+export default function Header({cart, setCart}) {
+
   const navigate = useNavigate();
+  const [showCart, setShowCart] = useState(false);
 
   let searchValue = ''
   const handleSearch = (value) => {
@@ -16,6 +19,15 @@ export default function Header() {
     navigate('/1231')
   }
 
+  const handleToggleCart = () => {
+    setShowCart(!showCart)
+  }
+
+  const handleClearCart = () => {
+    setCart([]);
+  }
+  
+  console.log('render')
   return (
     <header className="header">
       <div onClick={redirectToHome} className="logo">
@@ -31,6 +43,25 @@ export default function Header() {
       <div>
         <Input value={searchValue} onChange={handleSearch} type="text" />
         <Input value={searchValue} onChange={handleSearch} type="text" />
+      </div>
+
+      <div>
+        <Button type="black" onClick={handleToggleCart}>cart</Button>
+      </div>
+      {showCart && (
+        <div className="cart-container">
+          {cart.length > 0 && (
+            <div>
+              <Button onClick={handleClearCart} type="white">Clear Cart</Button>
+            </div>
+          )}
+          <div>
+            {cart.map(item => <div className="cart-item">{item.name}</div>)}
+          </div>
+        </div>
+      )}
+      <div>
+
       </div>
     </header>
   )

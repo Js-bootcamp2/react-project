@@ -4,6 +4,7 @@ import { ViewAllButton } from "../ViewAllButton/ViewAllButton";
 import Input from "../Input/Input";
 import Details from "../../pages/Details/Details";
 import { Link } from "react-router-dom";
+import Button from '../Button/button';
 
 export default class BlackBlock extends React.Component {
   constructor() {
@@ -17,6 +18,7 @@ export default class BlackBlock extends React.Component {
     this.handleViewAll = this.handleViewAll.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleActiveProduct = this.handleActiveProduct.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
   }
 
   handleViewAll() {
@@ -38,6 +40,12 @@ export default class BlackBlock extends React.Component {
     });
   }
 
+  handleAddToCart(e, item) {
+    e.stopPropagation();
+
+    this.props.addToCart([...this.props.cart, item])
+  }
+
   componentDidMount() {
     // console.log('did mount')
   }
@@ -48,7 +56,7 @@ export default class BlackBlock extends React.Component {
 
   render() {
     const { title, coloredTitle, subTitle, products } = this.props;
-    const { handleViewAll, handleInputChange, handleActiveProduct } = this;
+    const { handleViewAll, handleInputChange, handleActiveProduct, handleAddToCart } = this;
     const { isViewAllActive, search, activeProduct } = this.state;
 
     const rawProducts = isViewAllActive ? products : products.slice(0, 3);
@@ -88,6 +96,7 @@ export default class BlackBlock extends React.Component {
                   <div className="products-card__description">
                     {item.description}
                   </div>
+                  <Button onClick={(e) => handleAddToCart(e, item)}>Add to Cart</Button>
                 </div>
               );
             })}
